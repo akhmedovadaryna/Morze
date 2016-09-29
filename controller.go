@@ -1,4 +1,4 @@
-package main
+package Morze
 
 import (
 	"./logic"
@@ -8,12 +8,12 @@ import (
 
 func main() {
 	//var text2 string = ".-___.-_.-_.-___.-"
-	var name_file = "./files/input"
+	var name_file = "./files/input_text"
 	text, err := io.Input_from_file(name_file)
 	if err != nil {
         	return
     	}
-	result := Morze.TextToMorze(text)
+	result := logic.TextToMorze(text)
 	fmt.Println(result)
 
 
@@ -25,7 +25,7 @@ func main() {
 		return
 	}
 
-	result = Morze.Morze(result)
+	result = logic.Morze(result)
 	fmt.Println(result)
 
 }
