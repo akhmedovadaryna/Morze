@@ -14,6 +14,6 @@ func TestTextToMorze(t *testing.T) {
 	var ttm string
 	ttm = TextToMorze("GO GET")
 	if ttm != "--._---____--._._-_" {
-		t.Error("Expecteg --._---____--._._-_, got", m)
+		t.Error("Expecteg --._---____--._._-_, got", ttm)
 	}
 }
