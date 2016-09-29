@@ -1,10 +1,14 @@
 package Morze
 
-import "testing"
+import (
+	"testing"
+	"fmt"
+)
 
 func TestMorze(t *testing.T) {
 	var m string
 	m = Morze("--._---____--._._-_")
+	fmt.Printf(m)
 	if m != "GO GET"{
 		t.Error("Expected GO GET, got", m)
 	}
@@ -12,9 +16,9 @@ func TestMorze(t *testing.T) {
 
 func TestTextToMorze(t *testing.T) {
 	var ttm string
-	ttm = TextToMorze("GO GET")
-	if ttm != "--._---____--._._-_" {
-		t.Error("Expecteg --._---____--._._-_, got", ttm)
+	ttm = TextToMorze("Go")
+	if ttm != "--._---_\n" {
+		t.Error("Expecteg --._---_, got", ttm)
 	}
 }
 
