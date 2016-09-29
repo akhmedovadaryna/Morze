@@ -8,7 +8,7 @@ import (
 
 func main() {
 	//var text2 string = ".-___.-_.-_.-___.-"
-	var name_file = "./files/input_text"
+	var name_file = "./files/input"
 	text, err := io.Input_from_file(name_file)
 	if err != nil {
         	return

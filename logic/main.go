@@ -1,6 +1,7 @@
 package Morze
 import (
 	"strings"
+
 )
 
 // this is a comment
@@ -31,30 +32,36 @@ var morze_tab = map[string]string{
 	"-..-" : "X",
 	"-.--" : "Y",
 	"--.." : "Z",
+	".----": "1",
+	"..---": "2",
+	"...--": "3",
+	"....-": "4",
+	".....": "5",
+	"-....": "6",
+	"--...": "7",
+	"---..": "8",
+	"----.": "9",
+	"-----": "0",
 }
 var final string
 
 
 func Morze(text string) string{
-	keys := make([]string, 0, len(morze_tab))
-	for k := range morze_tab {
-		keys = append(keys, k)
-
-	}
 
 	spl0 := strings.Split(text, "\n")
 	for e := 0; e < len(spl0); e = e + 1 {
-		lines(keys, spl0[e], &final)
+		lines(spl0[e], &final)
 	}
 
 	return final
 }
 
-func lines(keys []string, spl_e string, final *string)  {
+func lines(spl_e string, final *string)  {
 	spl := strings.Split(spl_e, "___")
 	for e := 0; e < len(spl); e = e + 1 {
+
 		// words
-		words(keys, spl[e])
+		words(spl[e])
 		*final = strings.Join([]string{*final, " "}, "")
 	}
 	*final += "\n"
@@ -62,21 +69,21 @@ func lines(keys []string, spl_e string, final *string)  {
 }
 
 
-func words(keys []string, spl_e string)  {
+func words(spl_e string)  {
 	spl1 := strings.Split(spl_e, "_")
 		for i := 0; i < len(spl1); i = i + 1 {
 			//word
-			word(keys, spl1[i])
+			word(spl1[i])
 		}
 }
 
 
-func word(keys []string, spl1_i string) {
-	for j := 0; j < len(keys); j = j + 1 {
-		if keys[j] == spl1_i {
-			final = strings.Join([]string{final, morze_tab[keys[j]]}, "")
-			break
-		}
+func word(spl1_i string) {
+		for i, j := range morze_tab{
+			if i == spl1_i {
+				final = strings.Join([]string{final, j}, "")
+				break
+			}
 	}
 }
 
