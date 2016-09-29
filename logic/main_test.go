@@ -1,4 +1,4 @@
-package Morze
+package logic
 
 import (
 	"testing"

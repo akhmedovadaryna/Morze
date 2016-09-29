@@ -1,4 +1,5 @@
-package Morze
+package logic
+
 import (
 	"strings"
 
@@ -52,8 +53,8 @@ func Morze(text string) string{
 	for e := 0; e < len(spl0); e = e + 1 {
 		lines(spl0[e], &final)
 	}
-
-	return final
+	var l int = len(final)
+	return final[:l-2]
 }
 
 func lines(spl_e string, final *string)  {
