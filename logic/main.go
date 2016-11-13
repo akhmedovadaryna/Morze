@@ -2,7 +2,6 @@ package logic
 
 import (
 	"strings"
-
 )
 
 // this is a comment
@@ -47,25 +46,29 @@ var morze_tab = map[string]string{
 var final string
 
 
-func Morze(text string) string{
-
-	spl0 := strings.Split(text, "\n")
-	for e := 0; e < len(spl0); e = e + 1 {
-		lines(spl0[e], &final)
+func Morze(c_in chan string, c_out chan string) {
+	for {
+		str := <- c_in
+		if str == "//" {
+			c_out <- "//"
+			break
+		}
+		c_out <- lines(str)
 	}
-	var l int = len(final)
-	return final[:l-2]
 }
 
-func lines(spl_e string, final *string)  {
+
+func lines(spl_e string) (string) {
+	final = ""
 	spl := strings.Split(spl_e, "___")
 	for e := 0; e < len(spl); e = e + 1 {
 
 		// words
 		words(spl[e])
-		*final = strings.Join([]string{*final, " "}, "")
+		final = strings.Join([]string{final, " "}, "")
 	}
-	*final += "\n"
+	final += "\n"
+	return final
 
 }
 
@@ -88,18 +91,25 @@ func word(spl1_i string) {
 	}
 }
 
-func TextToMorze(text string) string{
+
+func TextToMorze(c_in chan string, c_out chan string) {
 	var result string
-	text = format_text(text)
-	lines := strings.Split(text, "\n")
-	for _, line := range lines {
-		for _, r := range line {
+	for {
+		result = ""
+		str := <- c_in
+		if str == "//" {
+			c_out <- "//"
+			break
+		}
+		str = format_text(str)
+		for _, r := range str {
 			text_to_morze_line(r, &result)
 		}
 		result += "\n"
+		c_out <- result
 	}
-	return result
 }
+
 
 func format_text(text string) string {
 	text = strings.Map(func (r rune) rune {
@@ -123,4 +133,41 @@ func text_to_morze_line(r rune, result *string) {
 	} else {
 		*result += "___"
 	}
+}
+
+
+func Serial_Morze(text string) string{
+
+	spl0 := strings.Split(text, "\n")
+	for e := 0; e < len(spl0); e = e + 1 {
+		Serial_lines(spl0[e], &final)
+	}
+	var l int = len(final)
+	return final[:l-2]
+}
+
+func Serial_lines(spl_e string, final *string)  {
+	spl := strings.Split(spl_e, "___")
+	for e := 0; e < len(spl); e = e + 1 {
+
+		// words
+		words(spl[e])
+		*final = strings.Join([]string{*final, " "}, "")
+	}
+	*final += "\n"
+
+}
+
+
+func Serial_TextToMorze(text string) string{
+	var result string
+	text = format_text(text)
+	lines := strings.Split(text, "\n")
+	for _, line := range lines {
+		for _, r := range line {
+			text_to_morze_line(r, &result)
+		}
+		result += "\n"
+	}
+	return result
 }
